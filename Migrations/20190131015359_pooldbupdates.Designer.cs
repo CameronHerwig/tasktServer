@@ -9,9 +9,9 @@ using tasktServer.Models;
 
 namespace tasktServer.Migrations
 {
-    [DbContext(typeof(tasktDatabaseContext))]
+    [DbContext(typeof(TasktDatabaseContext))]
     [Migration("20190131015359_pooldbupdates")]
-    partial class pooldbupdates
+    partial class PoolDbUpdates
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

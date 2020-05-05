@@ -1,9 +1,9 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
+using System;
 
 namespace tasktServer.Migrations
 {
-    public partial class workerpools : Migration
+    public partial class WorkerPools : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

@@ -28,13 +28,12 @@ export default class TaskList extends React.Component {
             1000
         );
 
-        console.log('running ' + this.state.api);
+        console.log('Initiating API Call - ' + this.state.api);
 
         fetch(this.state.api)
             .then(res => res.json())
             .then(
                 (result) => {
-                    console.log(result);
                     this.setState({
                         isLoaded: true,
                         taskList: result
@@ -48,11 +47,9 @@ export default class TaskList extends React.Component {
                     this.setState({
                         isLoaded: true,
                         error
-
                     });
                 }
         )
-
     }
 
     render() {

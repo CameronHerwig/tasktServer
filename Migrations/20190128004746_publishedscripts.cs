@@ -1,9 +1,9 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
+using System;
 
 namespace tasktServer.Migrations
 {
-    public partial class publishedscripts : Migration
+    public partial class PublishedScripts : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

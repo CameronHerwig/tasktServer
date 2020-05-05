@@ -9,9 +9,9 @@ using tasktServer.Models;
 
 namespace tasktServer.Migrations
 {
-    [DbContext(typeof(tasktDatabaseContext))]
+    [DbContext(typeof(TasktDatabaseContext))]
     [Migration("20190130010108_addremark")]
-    partial class addremark
+    partial class Addremark
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

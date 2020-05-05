@@ -29,7 +29,7 @@ export default class ScriptList extends React.Component {
             1000
         );
 
-        console.log('running ' + this.state.api);
+        console.log('Initiating API Call - ' + this.state.api);
 
         fetch(this.state.api)
             .then(res => res.json())
@@ -49,7 +49,6 @@ export default class ScriptList extends React.Component {
                     this.setState({
                         isLoaded: true,
                         error
-
                     });
                 }
             )

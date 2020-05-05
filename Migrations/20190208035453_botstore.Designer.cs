@@ -9,9 +9,9 @@ using tasktServer.Models;
 
 namespace tasktServer.Migrations
 {
-    [DbContext(typeof(tasktDatabaseContext))]
+    [DbContext(typeof(TasktDatabaseContext))]
     [Migration("20190208035453_botstore")]
-    partial class botstore
+    partial class BotStore
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

@@ -2,7 +2,7 @@
 
 namespace tasktServer.Migrations
 {
-    public partial class scriptFriendlyName : Migration
+    public partial class ScriptFriendlyName : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

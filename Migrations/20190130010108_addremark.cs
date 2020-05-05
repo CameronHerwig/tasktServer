@@ -2,7 +2,7 @@
 
 namespace tasktServer.Migrations
 {
-    public partial class addremark : Migration
+    public partial class Addremark : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

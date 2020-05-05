@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace tasktServer.Models
 {
@@ -14,7 +12,7 @@ namespace tasktServer.Models
         public string WorkerPoolName { get; set; }
         public List<AssignedPoolWorker> PoolWorkers { get; set; }
     }
-    public class AssignedPoolWorker 
+    public class AssignedPoolWorker
     {
         [Key]
         public Guid AssignedPoolWorkerItemID { get; set; }

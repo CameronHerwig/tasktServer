@@ -45,8 +45,7 @@ export class BotDashboard extends Component {
                 <h2>Latest Tasks</h2>
                 <AddTask></AddTask>
                 <p>Live view of the latest tasks being executed by your workers.</p>
-                <TaskList api="/api/Tasks/All"></TaskList>
-       
+                <TaskList api="/api/Tasks/All"></TaskList>      
             </div>
             );
 

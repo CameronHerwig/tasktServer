@@ -1,14 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace tasktServer.Models
 {
-    public class tasktDatabaseContext : DbContext
+    public class TasktDatabaseContext : DbContext
     {
-      protected override void OnConfiguring(DbContextOptionsBuilder contextBuilder)
+        protected override void OnConfiguring(DbContextOptionsBuilder contextBuilder)
         {
             if (!contextBuilder.IsConfigured)
             {
@@ -17,10 +13,10 @@ namespace tasktServer.Models
                 contextBuilder.UseSqlServer(connection);
             }
         }
-        public tasktDatabaseContext(DbContextOptions<tasktDatabaseContext> options)
+        public TasktDatabaseContext(DbContextOptions<TasktDatabaseContext> options)
             : base(options)
         { }
-        public tasktDatabaseContext()
+        public TasktDatabaseContext()
         { }
 
         public DbSet<Task> Tasks { get; set; }

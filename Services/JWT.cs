@@ -1,20 +1,17 @@
 ﻿using CryptoHelper;
 using Microsoft.IdentityModel.Tokens;
 using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 using tasktServer.Models;
 
 namespace tasktServer.Services
 {
     public class AuthService
     {
-        string jwtSecret;
-        int jwtLifespan;
+        readonly string jwtSecret;
+        readonly int jwtLifespan;
         public AuthService(string jwtSecret, int jwtLifespan)
         {
             this.jwtSecret = jwtSecret;

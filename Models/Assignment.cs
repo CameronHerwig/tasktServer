@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace tasktServer.Models
 {
@@ -18,9 +15,9 @@ namespace tasktServer.Models
         public TimeInterval Interval { get; set; }
         public DateTime NewTaskDue { get; set; }
 
-       public enum TimeInterval
+        public enum TimeInterval
         {
-         Seconds, Minutes, Days, Months
+            Seconds, Minutes, Days, Months
         }
     }
 }

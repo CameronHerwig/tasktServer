@@ -29,7 +29,7 @@ export default class TopWorkers extends React.Component {
             1000
         );
 
-        console.log('running ' + this.state.api);
+        console.log('Initiating API Call - ' + this.state.api);
 
         fetch(this.state.api)
             .then(res => res.json())
@@ -53,7 +53,6 @@ export default class TopWorkers extends React.Component {
                     });
                 }
         )
-
     }
 
 
@@ -120,7 +119,6 @@ export default class TopWorkers extends React.Component {
                         className="-striped -highlight"               
                     />                   
                 </div>
-
             );
         }
     }

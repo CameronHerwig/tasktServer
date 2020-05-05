@@ -1,9 +1,9 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
+using System;
 
 namespace tasktServer.Migrations
 {
-    public partial class assignments : Migration
+    public partial class Assignments : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

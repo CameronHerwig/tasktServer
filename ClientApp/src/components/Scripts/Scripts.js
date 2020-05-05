@@ -8,7 +8,6 @@ export class Scripts extends Component {
 
     render() {
         return (
-
             <div>
                 <h1>My Scripts</h1>     
                 <p>View and manage scripts that your workers have uploaded for remote execution.</p>

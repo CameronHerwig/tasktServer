@@ -1,10 +1,8 @@
 ﻿using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 using tasktServer.Models;
 
 namespace tasktServer.Services
@@ -34,8 +32,8 @@ namespace tasktServer.Services
 
         private void DoWork(object state)
         {
-            tasktDatabaseContext dbContext = new tasktDatabaseContext();
-           var assignments = dbContext.Assignments.Where(f => f.Enabled);
+            TasktDatabaseContext dbContext = new TasktDatabaseContext();
+            var assignments = dbContext.Assignments.Where(f => f.Enabled);
 
             //look through each assignment to see if anything is required to be executed
             foreach (var assn in assignments)
@@ -44,16 +42,18 @@ namespace tasktServer.Services
                 {
 
                     //create task
-                    var newTask = new Models.Task();
-                    newTask.WorkerID = assn.AssignedWorker;
-                    newTask.TaskStarted = DateTime.Now;
-                    newTask.Status = "Scheduled";
-                    newTask.ExecutionType = "Assignment";
-                    newTask.Script = assn.PublishedScriptID.ToString();
-                    newTask.Remark = "Scheduled by tasktServer";
+                    Models.Task newTask = new Models.Task
+                    {
+                        WorkerID = assn.AssignedWorker,
+                        TaskStarted = DateTime.Now,
+                        Status = "Scheduled",
+                        ExecutionType = "Assignment",
+                        Script = assn.PublishedScriptID.ToString(),
+                        Remark = "Scheduled by tasktServer"
+                    };
 
                     dbContext.Tasks.Add(newTask);
-                    
+
                     //update database
                     switch (assn.Interval)
                     {

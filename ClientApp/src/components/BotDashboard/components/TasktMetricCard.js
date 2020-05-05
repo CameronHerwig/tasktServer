@@ -30,7 +30,7 @@ export default class TasktMetricCard extends React.Component {
             1000
         );
         var apiCall = this.state.api + "?startDate=" + this.state.startDate;
-        console.log('running ' + apiCall);
+        console.log('Initiating API Call - ' + apiCall);
         fetch(apiCall)
             .then(res => res.json())
             .then(

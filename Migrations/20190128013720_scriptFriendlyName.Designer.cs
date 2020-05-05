@@ -9,9 +9,9 @@ using tasktServer.Models;
 
 namespace tasktServer.Migrations
 {
-    [DbContext(typeof(tasktDatabaseContext))]
+    [DbContext(typeof(TasktDatabaseContext))]
     [Migration("20190128013720_scriptFriendlyName")]
-    partial class scriptFriendlyName
+    partial class ScriptFriendlyName
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

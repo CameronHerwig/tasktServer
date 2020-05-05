@@ -2,7 +2,7 @@
 
 namespace tasktServer.Migrations
 {
-    public partial class scheduling : Migration
+    public partial class Scheduling : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

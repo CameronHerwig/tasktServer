@@ -1,12 +1,11 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using tasktServer.Models;
@@ -25,8 +24,7 @@ namespace tasktServer
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
+            services.AddMvc();
 
             //create jwt signing key
             var signingKey = new SymmetricSecurityKey(System.Text.Encoding.ASCII.GetBytes("add_key_here"));
@@ -36,7 +34,7 @@ namespace tasktServer
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-             
+
             }).AddJwtBearer(tok =>
             {
                 tok.ClaimsIssuer = "localhost";
@@ -48,15 +46,11 @@ namespace tasktServer
                     RequireExpirationTime = false,
                     ValidateLifetime = false,
                     IssuerSigningKey = signingKey,
-      
-                
                 };
                 tok.SaveToken = true;
             }
 
             );
-
-
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -64,11 +58,8 @@ namespace tasktServer
                 configuration.RootPath = "ClientApp/build";
             });
 
-  
-
             DatabaseConfiguration.ConnectionString = Configuration["ConnectionString"];
-
-            services.AddDbContext<Models.tasktDatabaseContext>
+            services.AddDbContext<Models.TasktDatabaseContext>
                 (options => options.UseSqlServer(DatabaseConfiguration.ConnectionString));
 
             services.AddHostedService<Services.AssignmentService>();
@@ -76,35 +67,34 @@ namespace tasktServer
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostEnvironment env)
         {
 
-            //REQUIRED WORKAROUND FOR .NET CORE 2.2
             CurrentDirectoryHelpers.SetCurrentDirectory();
 
-            //if (env.IsDevelopment())
-            //{
-            //    app.UseDeveloperExceptionPage();
-            //}
-            //else
-            //{
-            //    app.UseExceptionHandler("/Error");
-            //    app.UseHsts();
-            //}
-
+            /*
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Error");
+                app.UseHsts();
+            }
+            */
 
             app.UseDeveloperExceptionPage();
-
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
+            app.UseRouting();
 
-            app.UseMvc(routes =>
+            //Enable MVC endpoint routing and define schema
+            app.UseEndpoints(routes =>
             {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller}/{action=Index}/{id?}");
+                routes.MapControllerRoute("default", "{controller}/{action=Index}/{id?}");
             });
 
             app.UseSpa(spa =>
@@ -131,7 +121,7 @@ namespace tasktServer
         private static extern IntPtr GetModuleHandle(string lpModuleName);
 
         [System.Runtime.InteropServices.DllImport(AspNetCoreModuleDll)]
-        private static extern int http_get_application_properties(ref IISConfigurationData iiConfigData);
+        private static extern int Http_get_application_properties(ref IISConfigurationData iiConfigData);
 
         [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Sequential)]
         private struct IISConfigurationData
@@ -160,8 +150,8 @@ namespace tasktServer
                         return;
                     }
 
-                    IISConfigurationData configurationData = default(IISConfigurationData);
-                    if (http_get_application_properties(ref configurationData) != 0)
+                    IISConfigurationData configurationData = default;
+                    if (Http_get_application_properties(ref configurationData) != 0)
                     {
                         return;
                     }
@@ -171,9 +161,9 @@ namespace tasktServer
 
                 Environment.CurrentDirectory = sitePhysicalPath;
             }
-            catch
+            catch (Exception ex)
             {
-                // ignore
+                Console.WriteLine("Failure while setting current directory: " + ex.Message);
             }
         }
     }

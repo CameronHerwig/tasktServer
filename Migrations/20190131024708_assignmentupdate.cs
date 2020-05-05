@@ -2,7 +2,7 @@
 
 namespace tasktServer.Migrations
 {
-    public partial class assignmentupdate : Migration
+    public partial class AssignmentUpdate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

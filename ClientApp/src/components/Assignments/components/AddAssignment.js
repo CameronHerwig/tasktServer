@@ -113,6 +113,8 @@ export default class AddAssignment extends React.Component {
             newTaskModalOpen: false,
         });
 
+        this.state.assignmentEnabled = false;
+
         fetch('/api/Assignments/Add', {
             method: 'POST',
             headers: {
@@ -213,7 +215,7 @@ export default class AddAssignment extends React.Component {
 
                             <FormGroup controlId="assignmentName">
                                 <ControlLabel><Glyphicon glyph='user' />Enter Assignment Name</ControlLabel>
-                                <FormControl type="text" placeholder="My Assignment" />
+                                <FormControl type="text" placeholder="My Assignment" onChange={this.updateAssignmentName.bind(this)}/>
                             </FormGroup>
 
 
