@@ -42,7 +42,7 @@ namespace tasktServer.Services
                 {
 
                     //create task
-                    Models.Task newTask = new Models.Task
+                    var newTask = new Task
                     {
                         WorkerID = assn.AssignedWorker,
                         TaskStarted = DateTime.Now,
@@ -72,14 +72,7 @@ namespace tasktServer.Services
                         default:
                             break;
                     }
-
-
-
-
-
-
                 }
-
             }
 
             //look through stale tasks to expire after 10 minutes
