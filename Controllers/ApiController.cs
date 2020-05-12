@@ -95,7 +95,7 @@ namespace tasktServer.Controllers
 
                 using (var context = new TasktDatabaseContext())
                 {
-                    var groupedWorkers = context.Tasks.Where(f => f.TaskStarted >= DateTime.Now.AddDays(-1)).GroupBy(f => f.WorkerID).OrderByDescending(f => f.Count());
+                    var groupedWorkers = context.Tasks.Where(f => f.TaskStarted >= DateTime.Now.AddDays(-1)).ToList().GroupBy(f => f.WorkerID).OrderByDescending(f => f.Count());
 
                     foreach (var worker in groupedWorkers)
                     {
@@ -274,83 +274,20 @@ namespace tasktServer.Controllers
 
         #region Metrics API for Tasks
 
-        [HttpGet("/api/Tasks/Metrics/Completed")]
-        public IActionResult GetCompletedTasks([FromQuery]DateTime? startDate = null)
+        [HttpGet("/api/Tasks/Metrics/Status")]
+        public IActionResult GetStatusTaskCount([FromQuery] MetricRequest request)
         {
             try
             {
-                startDate ??= DateTime.Today;
-                int completedTaskCount;
+                request.StartDate ??= DateTime.Today;
+                int taskCount;
 
                 using (var context = new TasktDatabaseContext())
                 {
-                    completedTaskCount = context.Tasks.Where(f => f.Status == "Completed").Where(f => f.TaskStarted >= startDate).Count();
-                }
-                
-                return Ok(completedTaskCount + " completed");
-            }
-            catch (Exception Ex)
-            {
-                return StatusCode(500, Ex.Message);
-            }
-        }
-
-        [HttpGet("/api/Tasks/Metrics/Closed")]
-        public IActionResult GetClosedTasks([FromQuery]DateTime? startDate = null)
-        {
-            try
-            {
-                startDate ??= DateTime.Today;
-                int closedTaskCount;
-
-                using (var context = new TasktDatabaseContext())
-                {
-                    closedTaskCount = context.Tasks.Where(f => f.Status == "Closed").Where(f => f.TaskStarted >= startDate).Count();
-                }
-                
-                return Ok(closedTaskCount + " closed");
-            }
-            catch (Exception Ex)
-            {
-                return StatusCode(500, Ex.Message);
-            }   
-        }
-
-        [HttpGet("/api/Tasks/Metrics/Errored")]
-        public IActionResult GetErroredTasks([FromQuery]DateTime? startDate = null)
-        {
-            try
-            {
-                startDate ??= DateTime.Today;
-                int erroredTaskCount;
-
-                using (var context = new TasktDatabaseContext())
-                {
-                    erroredTaskCount = context.Tasks.Where(f => f.Status == "Error").Where(f => f.TaskStarted >= startDate).Count();
-                }
-                
-                return Ok(erroredTaskCount + " errored");
-            }
-            catch (Exception Ex)
-            {
-                return StatusCode(500, Ex.Message);
-            }     
-        }
-
-        [HttpGet("/api/Tasks/Metrics/Running")]
-        public IActionResult GetRunningTasks([FromQuery]DateTime? startDate = null)
-        {
-            try
-            {
-                startDate ??= DateTime.Today;
-                int runningTaskCount;
-
-                using (var context = new TasktDatabaseContext())
-                {
-                    runningTaskCount = context.Tasks.Where(f => f.Status == "Running").Where(f => f.TaskStarted >= startDate).Count();
+                    taskCount = context.Tasks.Where(f => f.Status == request.Status.ToString()).Where(f => f.TaskStarted >= request.StartDate).Count();
                 }
 
-                return Ok(runningTaskCount + " running");
+                return Ok(taskCount + " " + request.Status.ToString());
             }
             catch (Exception Ex)
             {

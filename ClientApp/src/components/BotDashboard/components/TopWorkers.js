@@ -26,13 +26,18 @@ export default class TopWorkers extends React.Component {
                 this.GetAPIData();
             }
                 .bind(this),
-            1000
+            5000
         );
 
         console.log('Initiating API Call - ' + this.state.api);
 
         fetch(this.state.api)
-            .then(res => res.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw Error(response.statusText);
+                }
+                return response.json()
+            })
             .then(
                 (result) => {
                     console.log(result);
@@ -49,10 +54,11 @@ export default class TopWorkers extends React.Component {
                     this.setState({
                         isLoaded: true,
                         error
-
-                    });
-                }
-        )
+                    })
+                })
+            .catch(function(error) {
+                console.log("Error during TopWorkers API call: " + error);
+            });
     }
 
 

@@ -130,10 +130,10 @@ export default class AddAssignment extends React.Component {
                 publishedScriptID: this.state.selectedScript,
             })
         },
-            (error) => {
-                alert(error);
-                console.log(error);
-            })
+        (error) => {
+            alert(error);
+            console.log(error);
+        })
 
 
 

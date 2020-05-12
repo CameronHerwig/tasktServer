@@ -116,25 +116,35 @@ export default class AddTask extends React.Component {
     LoadData(){
         console.log("Loading Data from /api/Scripts/All");
 
-
-        //fetch all scripts
         fetch('/api/Scripts/All')
-            .then(res => res.json())
-            .then(
-            (result) => {
-                console.log("Data Loaded from /api/Scripts/All: ", JSON.stringify(result) );
-
-          
-                this.setState({
-                    executableTasks: result
-                });
-                
-                },
-                (error) => {
-                    alert(error);
-                    console.log(error);
+            .then(response => {
+                if (!response.ok) {
+                    throw Error(response.statusText);
                 }
-        )
+                return response.json()
+            })
+            .then(
+                (result) => {
+                    console.log("Data Loaded from /api/Scripts/All: ", JSON.stringify(result));
+                    this.setState({
+                        isLoaded: true,
+                        workerList: result
+                    });
+                },
+                // Note: it's important to handle errors here
+                // instead of a catch() block so that we don't swallow
+                // exceptions from actual bugs in components.
+                (error) => {
+                    console.log(error);
+                    this.setState({
+                        isLoaded: true,
+                        error
+                    })
+                })
+            .catch(function (error) {
+                console.log("Error during All Scripts API call: " + error);
+            });
+
 
         console.log("Loading Data from /api/Workers/All");
 

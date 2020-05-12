@@ -11,7 +11,6 @@ import Loader from '../Loader';
 export class BotDashboard extends Component {
     displayName = BotDashboard.name
     timelineScope = 1440
-    startDate
     constructor(props) {
         super(props);
 
@@ -33,10 +32,10 @@ export class BotDashboard extends Component {
                 
                 <p>View statistics and information about your workers.  Tasks are automatically closed if a worker does not update when finished and attempts to launch another task.</p>
 
-                <TasktMetricCard metricName="Tasks Running Now" api="/api/Tasks/Metrics/Running" startDate={this.state.startDate}></TasktMetricCard>
-                <TasktMetricCard metricName="Tasks Completed" api="/api/Tasks/Metrics/Completed" startDate={this.state.startDate}></TasktMetricCard>
-                <TasktMetricCard metricName="Tasks Closed" api="/api/Tasks/Metrics/Closed" startDate={this.state.startDate}></TasktMetricCard>
-                <TasktMetricCard metricName="Tasks Errored" api="/api/Tasks/Metrics/Errored" startDate={this.state.startDate}></TasktMetricCard>
+                <TasktMetricCard metricName="Tasks Running Now" api="/api/Tasks/Metrics/Status" startDate={this.state.startDate} status="Running"></TasktMetricCard>
+                <TasktMetricCard metricName="Tasks Completed" api="/api/Tasks/Metrics/Status" startDate={this.state.startDate} status="Completed"></TasktMetricCard>
+                <TasktMetricCard metricName="Tasks Closed" api="/api/Tasks/Metrics/Status" startDate={this.state.startDate} status="Closed"></TasktMetricCard>
+                <TasktMetricCard metricName="Tasks Errored" api="/api/Tasks/Metrics/Status" startDate={this.state.startDate} status="Errored"></TasktMetricCard>
 
                 <h2>Top Workers</h2>
                 <p>View your top workers for the last 24 hours.</p>
